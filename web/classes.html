@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same head content -->
+    <style>
+        .quiz-section {
+            background: var(--bg-dark);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid var(--accent);
+        }
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+        .quiz-options label {
+            display: block;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python Classes</h1>
+        <p>Object-oriented programming in Python</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="section">
+                <h3>Class Basics</h3>
+                <p>Classes are blueprints for creating objects:</p>
+                <p class="code">class Dog:
+    def __init__(self, name):
+        self.name = name
+
+    def bark(self):
+        return "Woof!"

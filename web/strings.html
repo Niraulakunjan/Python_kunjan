@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python String Data Type Tutorial & Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1877F2;
+            --secondary-blue: #4267B2;
+            --accent-blue: #2D88FF;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0a0a0a;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-blue);
+            margin: 1.5rem 0;
+        }
+
+        .section {
+            background: var(--darker-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(45, 136, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .type-card {
+            background: rgba(24, 119, 242, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .type-icon {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .quiz-question {
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-options label {
+            background: rgba(24, 119, 242, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-options label:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 3px solid green;
+        }
+
+        .incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 3px solid red;
+        }
+
+        textarea.code-input {
+            width: 100%;
+            min-height: 100px;
+            background: #2d2d2d;
+            color: var(--text-color);
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fab fa-python"></i> Python String Data Type</h1>
+
+        <div class="section">
+            <h2>Overview of String Data Type</h2>
+            <div class="type-grid">
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-font"></i></div>
+                    <h3>Text Type</h3>
+                    <ul>
+                        <li>str (string)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>String Operations</h2>
+
+            <h3>Slicing Strings</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# String slicing examples
+text = "Hello, World!"
+print(text[0:5])      # Output: Hello
+print(text[7:])       # Output: World!
+print(text[-6:-1])    # Output: World
+print(text[::2])      # Output: Hlo ol!</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+
+            <h3>Modify Strings</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# String modification examples
+text = "  Hello, World!  "
+print(text.upper())       # Output:   HELLO, WORLD!  
+print(text.lower())       # Output:   hello, world!  
+print(text.strip())       # Output: Hello, World!
+print(text.replace("H", "J"))  # Output:   Jello, World!  </pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+
+            <h3>Concatenate Strings</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# String concatenation examples
+first = "Hello"
+second = "World"
+greeting = first + " " + second
+print(greeting)           # Output: Hello World
+print(first * 3)          # Output: HelloHelloHello
+print(f"{first}, {second}!")  # Output: Hello, World!</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+
+            <h3>Format Strings</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# String formatting examples
+name = "Alice"
+age = 25
+print(f"My name is {name} and I am {age}.")  # Output: My name is Alice and I am 25.
+print("My name is {} and I am {}.".format(name, age))  # Output: My name is Alice and I am 25.
+print("My name is %s and I am %d." % (name, age))      # Output: My name is Alice and I am 25.</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+
+            <h3>Escape Characters</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Escape character examples
+text = "She said, \"Hello!\""
+print(text)               # Output: She said, "Hello!"
+print('It\'s a test')     # Output: It's a test
+print("Line 1\nLine 2")   # Output: Line 1
+                          #         Line 2
+print("Tab\tSpace")       # Output: Tab   Space</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+
+            <h3>String Methods</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# String method examples
+text = "Hello, World!"
+print(text.startswith("He"))    # Output: True
+print(text.endswith("!"))       # Output: True
+print(text.find("World"))       # Output: 7
+print(text.count("l"))          # Output: 3
+print(text.split(","))          # Output: ['Hello', ' World!']
+print(text.isalpha())           # Output: False (due to comma and space)</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Python String Exercises (Quiz)</h2>
+            <h3>Test Your Knowledge</h3>
+
+            <!-- Question 1: Multiple Choice -->
+            <div class="quiz-question">
+                <p>1. What will be the output of the following code?</p>
+                <div class="code-block">
+                    <pre>
+text = "Python"
+print(text[1:4])
+                    </pre>
+                </div>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q1" value="a"> a) Pyt</label>
+                    <label><input type="radio" name="q1" value="b"> b) yth</label>
+                    <label><input type="radio" name="q1" value="c"> c) ytho</label>
+                    <label><input type="radio" name="q1" value="d"> d) Error</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q1', 'b', this)" aria-label="Check answer for question 1">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 2: True/False -->
+            <div class="quiz-question">
+                <p>2. Strings in Python are mutable, meaning they can be changed after creation.</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q2" value="true"> True</label>
+                    <label><input type="radio" name="q2" value="false"> False</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q2', 'false', this)" aria-label="Check answer for question 2">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 3: Multiple Choice -->
+            <div class="quiz-question">
+                <p>3. What will be the output of the following code?</p>
+                <div class="code-block">
+                    <pre>
+name = "Bob"
+print(f"Hello, {name}!")
+                    </pre>
+                </div>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q3" value="a"> a) Hello, {name}!</label>
+                    <label><input type="radio" name="q3" value="b"> b) Hello, Bob!</label>
+                    <label><input type="radio" name="q3" value="c"> c) Hello, name!</label>
+                    <label><input type="radio" name="q3" value="d"> d) Error</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q3', 'b', this)" aria-label="Check answer for question 3">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 4: Multiple Choice -->
+            <div class="quiz-question">
+                <p>4. Which escape character is used to include a newline in a string?</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q4" value="a"> a) \t</label>
+                    <label><input type="radio" name="q4" value="b"> b) \n</label>
+                    <label><input type="radio" name="q4" value="c"> c) \"</label>
+                    <label><input type="radio" name="q4" value="d"> d) \\'</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q4', 'b', this)" aria-label="Check answer for question 4">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 5: Coding Challenge -->
+            <div class="quiz-question">
+                <p>5. Write a Python code snippet to create a string "Hello, World!", convert it to uppercase, and print the result.</p>
+                <div class="code-container">
+                    <textarea class="code-input" id="codeInput" placeholder="Enter your Python code here..." aria-label="Enter your Python code"></textarea>
+                </div>
+                <button class="btn" onclick="checkCodeAnswer(this)" aria-label="Check code answer">Submit Code</button>
+                <div class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Object to store timeout IDs for buttons to prevent overlapping timeouts
+        const copyTimeouts = new Map();
+
+        /**
+         * Copies the text of the nearest code block to the clipboard.
+         * @param {HTMLButtonElement} button - The copy button clicked.
+         */
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling?.querySelector('pre');
+            if (!codeBlock) {
+                console.error('No code block found for copying.');
+                return;
+            }
+
+            navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                // Clear any existing timeout for this button
+                if (copyTimeouts.has(button)) {
+                    clearTimeout(copyTimeouts.get(button));
+                }
+
+                // Update button text and set new timeout
+                button.textContent = 'Copied!';
+                const timeoutId = setTimeout(() => {
+                    button.textContent = 'Copy';
+                    copyTimeouts.delete(button);
+                }, 2000);
+                copyTimeouts.set(button, timeoutId);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Error';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+            });
+        }
+
+        /**
+         * Checks the selected answer for a quiz question and displays feedback.
+         * @param {string} questionName - The name attribute of the radio inputs.
+         * @param {string} correctAnswer - The correct answer value.
+         * @param {HTMLButtonElement} button - The check answer button clicked.
+         */
+        function checkAnswer(questionName, correctAnswer, button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+            const resultDiv = button.nextElementSibling;
+
+            if (!resultDiv) {
+                console.error('Result div not found for question:', questionName);
+                button.disabled = false;
+                return;
+            }
+
+            resultDiv.style.display = 'block';
+            if (selected) {
+                if (selected.value === correctAnswer) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = 'Correct! ' + getExplanation(questionName);
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. ' + getExplanation(questionName);
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please select an answer.';
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+
+        /**
+         * Provides explanations for quiz questions.
+         * @param {string} questionName - The name attribute of the question.
+         * @returns {string} Explanation for the question.
+         */
+        function getExplanation(questionName) {
+            const explanations = {
+                q1: 'Slicing text[1:4] extracts characters from index 1 to 3, resulting in "yth" from "Python".',
+                q2: 'Strings are immutable in Python; they cannot be changed after creation. Methods like upper() return a new string.',
+                q3: 'f-strings evaluate the expression inside curly braces, so {name} becomes "Bob", resulting in "Hello, Bob!".',
+                q4: 'The \n escape character adds a newline to a string, while \t adds a tab, \" adds a quote, and \\" adds a single quote.'
+            };
+            return explanations[questionName] || 'No explanation available.';
+        }
+
+        /**
+         * Validates the user's code for the coding challenge and displays feedback.
+         * @param {HTMLButtonElement} button - The submit button clicked.
+         */
+        function checkCodeAnswer(button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const resultDiv = button.nextElementSibling;
+            const codeInput = document.getElementById('codeInput');
+            if (!resultDiv || !codeInput) {
+                console.error('Result div or code input not found.');
+                button.disabled = false;
+                return;
+            }
+
+            const userCode = codeInput.value.trim();
+            resultDiv.style.display = 'block';
+
+            // Basic validation checks
+            const hasHelloWorld = /"Hello,\s*World!"|'Hello,\s*World!'/.test(userCode);
+            const hasUpper = /\.upper\(\)/.test(userCode);
+            const hasPrint = /print\s*\(/.test(userCode);
+
+            if (userCode === '') {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please enter some code.';
+            } else if (hasHelloWorld && hasUpper && hasPrint) {
+                resultDiv.className = 'result correct';
+                resultDiv.textContent = 'Correct! Your code creates the string "Hello, World!", converts it to uppercase, and prints it.\n\nExpected output: HELLO, WORLD!';
+            } else {
+                resultDiv.className = 'result incorrect';
+                let feedback = 'Incorrect. Your code is missing one or more required elements:\n';
+                if (!hasHelloWorld) feedback += '- The string "Hello, World!"\n';
+                if (!hasUpper) feedback += '- The .upper() method\n';
+                if (!hasPrint) feedback += '- A print() statement\n';
+                feedback += '\nTry this:\ntext = "Hello, World!"\nprint(text.upper())';
+                resultDiv.textContent = feedback;
+            }
+
+            // Re-enable button after 2 seconds
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

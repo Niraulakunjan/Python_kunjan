@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Data Types Tutorial & Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1877F2;
+            --secondary-blue: #4267B2;
+            --accent-blue: #2D88FF;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0a0a0a;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-blue);
+            margin: 1.5rem 0;
+        }
+
+        .section {
+            background: var(--darker-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(45, 136, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .type-card {
+            background: rgba(24, 119, 242, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .type-icon {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .example-output {
+            background: #1e1e1e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .quiz-question {
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-options label {
+            background: rgba(24, 119, 242, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-options label:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 3px solid green;
+        }
+
+        .incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 3px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fab fa-python"></i> Python Data Types</h1>
+
+        <div class="section">
+            <h2>Overview of Python Data Types</h2>
+            <div class="type-grid">
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-hashtag"></i></div>
+                    <h3>Numeric Types</h3>
+                    <ul>
+                        <li>int (integer)</li>
+                        <li>float (decimal)</li>
+                        <li>complex</li>
+                    </ul>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-font"></i></div>
+                    <h3>Text Type</h3>
+                    <ul>
+                        <li>str (string)</li>
+                    </ul>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-list"></i></div>
+                    <h3>Sequence Types</h3>
+                    <ul>
+                        <li>list</li>
+                        <li>tuple</li>
+                        <li>range</li>
+                    </ul>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-table"></i></div>
+                    <h3>Mapping Type</h3>
+                    <ul>
+                        <li>dict (dictionary)</li>
+                    </ul>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-object-group"></i></div>
+                    <h3>Set Types</h3>
+                    <ul>
+                        <li>set</li>
+                        <li>frozenset</li>
+                    </ul>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-icon"><i class="fas fa-toggle-on"></i></div>
+                    <h3>Boolean Type</h3>
+                    <ul>
+                        <li>bool</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Numeric Types</h2>
+            
+            <h3>Integer (int)</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Integer examples
+x = 10
+y = -5
+big_num = 1_000_000  # Using underscore for readability
+
+print(type(x))       # Output: <class 'int'>
+print(x + y)         # Output: 5
+print(big_num)       # Output: 1000000</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Float</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Float examples
+pi = 3.14159
+scientific = 2.5e-3  # Scientific notation
+
+print(type(pi))      # Output: <class 'float'>
+print(pi + 1)        # Output: 4.14159
+print(scientific)     # Output: 0.0025</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Complex</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Complex number examples
+z1 = 2 + 3j
+z2 = complex(1, -2)
+
+print(type(z1))      # Output: <class 'complex'>
+print(z1 + z2)       # Output: (3+1j)
+print(z1.real)       # Output: 2.0</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Text Type (str)</h2>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# String examples
+single_quotes = 'Hello'
+double_quotes = "World"
+multi_line = """This is a
+multi-line string"""
+
+# String operations
+print(single_quotes + ' ' + double_quotes)  # Output: Hello World
+print(len(multi_line))                      # Output: 24
+print('Hello'[1:4])                         # Output: ell</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Sequence Types</h2>
+            
+            <h3>List</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# List examples
+fruits = ['apple', 'banana', 'orange']
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, 'hello', 3.14, True]
+
+# List operations
+fruits.append('grape')              # Add item
+print(fruits[0])                    # Output: apple
+print(len(numbers))                 # Output: 5
+print(mixed[1:3])                   # Output: ['hello', 3.14]</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Tuple</h3>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Tuple examples
+coordinates = (10, 20)
+rgb = (255, 128, 0)
+
+# Tuple operations
+print(coordinates[0])               # Output: 10
+print(len(rgb))                     # Output: 3
+print(coordinates + rgb)            # Output: (10, 20, 255, 128, 0)</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Mapping Type (dict)</h2>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Dictionary examples
+person = {
+    'name': 'John',
+    'age': 30,
+    'city': 'New York'
+}
+
+# Dictionary operations
+print(person['name'])               # Output: John
+person['email'] = 'john@email.com'  # Add new key-value pair
+print(person.keys())                # Output: dict_keys(['name', 'age', 'city', 'email'])
+print(person.get('phone', 'N/A'))   # Output: N/A (default value)</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Set Types</h2>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Set examples
+fruits_set = {'apple', 'banana', 'orange'}
+numbers_set = {1, 2, 3, 3, 4, 4, 5}  # Duplicates are removed
+
+# Set operations
+fruits_set.add('grape')             # Add item
+print(numbers_set)                   # Output: {1, 2, 3, 4, 5}
+print(len(fruits_set))               # Output: 4
+
+# Frozen set (immutable)
+frozen = frozenset([1, 2, 3])</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Boolean Type</h2>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Boolean examples
+is_active = True
+is_logged_in = False
+
+# Boolean operations
+print(is_active and is_logged_in)    # Output: False
+print(is_active or is_logged_in)     # Output: True
+print(not is_active)                 # Output: False
+
+# Boolean conversion
+print(bool(1))       # Output: True
+print(bool(""))      # Output: False
+print(bool([]))      # Output: False</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Type Conversion</h2>
+            <div class="code-container">
+                <div class="code-block">
+                    <pre>
+# Type conversion examples
+# String to number
+num_str = "123"
+num_int = int(num_str)      # Convert to integer
+num_float = float(num_str)  # Convert to float
+
+# Number to string
+back_to_str = str(num_int)  # Convert back to string
+
+# List/String/Tuple conversion
+my_list = list("Hello")     # Convert string to list
+my_tuple = tuple([1, 2, 3]) # Convert list to tuple
+my_set = set([1, 2, 2, 3])  # Convert list to set
+
+print(my_list)              # Output: ['H', 'e', 'l', 'l', 'o']
+print(my_tuple)             # Output: (1, 2, 3)
+print(my_set)               # Output: {1, 2, 3}</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Python Data Types Quiz</h2>
+            <h3>Test Your Knowledge</h3>
+
+            <!-- Question 1: Multiple Choice -->
+            <div class="quiz-question">
+                <p>1. Which of the following is NOT a numeric data type in Python?</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q1" value="a"> a) int</label>
+                    <label><input type="radio" name="q1" value="b"> b) float</label>
+                    <label><input type="radio" name="q1" value="c"> c) str</label>
+                    <label><input type="radio" name="q1" value="d"> d) complex</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q1', 'c', this)">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 2: True/False -->
+            <div class="quiz-question">
+                <p>2. A tuple is mutable, meaning its elements can be changed after creation.</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q2" value="true"> True</label>
+                    <label><input type="radio" name="q2" value="false"> False</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q2', 'false', this)">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 3: Multiple Choice -->
+            <div class="quiz-question">
+                <p>3. What will be the output of the following code?</p>
+                <div class="code-block">
+                    <pre>
+my_set = {1, 2, 2, 3}
+print(len(my_set))
+                    </pre>
+                </div>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q3" value="a"> a) 4</label>
+                    <label><input type="radio" name="q3" value="b"> b) 3</label>
+                    <label><input type="radio" name="q3" value="c"> c) 2</label>
+                    <label><input type="radio" name="q3" value="d"> d) Error</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q3', 'b', this)">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 4: Multiple Choice -->
+            <div class="quiz-question">
+                <p>4. Which method is used to add a key-value pair to a dictionary?</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="q4" value="a"> a) append()</label>
+                    <label><input type="radio" name="q4" value="b"> b) add()</label>
+                    <label><input type="radio" name="q4" value="c"> c) update()</label>
+                    <label><input type="radio" name="q4" value="d"> d) insert()</label>
+                </div>
+                <button class="btn" onclick="checkAnswer('q4', 'c', this)">Check Answer</button>
+                <div class="result"></div>
+            </div>
+
+            <!-- Question 5: Coding Challenge -->
+            <div class="quiz-question">
+                <p>5. Write a Python code snippet to create a list of numbers from 1 to 5, convert it to a tuple, and print the tuple's length.</p>
+                <div class="code-block">
+                    <pre>
+# Write your code here
+                    </pre>
+                </div>
+                <button class="btn" onclick="checkCodeAnswer()">Check Answer</button>
+                <div class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling.querySelector('pre');
+            navigator.clipboard.writeText(codeBlock.textContent);
+            button.textContent = 'Copied!';
+            setTimeout(() => button.textContent = 'Copy', 2000);
+        }
+
+        function checkAnswer(questionName, correctAnswer, button) {
+            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+            const resultDiv = button.nextElementSibling;
+            if (selected) {
+                resultDiv.style.display = 'block';
+                if (selected.value === correctAnswer) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = 'Correct! ' + getExplanation(questionName);
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. ' + getExplanation(questionName);
+                }
+            } else {
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please select an answer.';
+            }
+        }
+
+        function getExplanation(questionName) {
+            const explanations = {
+                q1: 'str is a text data type, not a numeric type. Numeric types include int, float, and complex.',
+                q2: 'Tuples are immutable, meaning their elements cannot be changed after creation.',
+                q3: 'Sets automatically remove duplicates, so {1, 2, 2, 3} has 3 unique elements, and len() returns 3.',
+                q4: 'The update() method is used to add key-value pairs to a dictionary, or you can use direct assignment like dict[key] = value.'
+            };
+            return explanations[questionName];
+        }
+
+        function checkCodeAnswer() {
+            const resultDiv = document.querySelector('.quiz-question:last-child .result');
+            const expectedOutput = 5;
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result correct';
+            resultDiv.textContent = 'Try this code:\nmy_list = [1, 2, 3, 4, 5]\nmy_tuple = tuple(my_list)\nprint(len(my_tuple))\n\nThis should output: 5';
+        }
+    </script>
+</body>
+</html>

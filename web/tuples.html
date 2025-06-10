@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tuples Tutorial & Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1877F2;
+            --secondary-blue: #4267B2;
+            --accent-blue: #2D88FF;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0a0a0a;
+            --text-color: #ffffff;
+            --bg-light: #242526;
+            --text-light: #E4E6EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: var(--darker-bg);
+            border-bottom: 1px solid rgba(45, 136, 255, 0.1);
+        }
+
+        header h1 {
+            color: var(--accent-blue);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--darker-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .section h2, .section h3 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .tuple-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .tuple-table th, .tuple-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tuple-table th {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #f8f8f2;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .quiz-question {
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-options label {
+            background: rgba(24, 119, 242, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-options label:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 3px solid green;
+        }
+
+        .incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 3px solid red;
+        }
+
+        textarea.code-input {
+            width: 100%;
+            min-height: 100px;
+            background: #2d2d2d;
+            color: var(--text-color);
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fab fa-python"></i> Python Tuples</h1>
+        <p>Complete guide to Python's tuple data structure</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="section">
+                <h2>Tuple Basics</h2>
+                <p>Tuples are ordered, immutable collections that can contain mixed data types. They are similar to lists but cannot be modified after creation, making them suitable for fixed data.</p>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# Tuple creation and indexing
+mytuple = ("apple", "banana", "cherry")
+print(mytuple[0])    # Output: apple
+print(type(mytuple)) # Output: <class 'tuple'>
+print(mytuple)       # Output: ('apple', 'banana', 'cherry')
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+                <p>Key characteristics:</p>
+                <ul>
+                    <li>Zero-based indexing: The first element is at position 0 (e.g., <span class="code">mytuple[0]</span>).</li>
+                    <li>Can contain duplicates: Multiple identical elements are allowed (e.g., <span class="code">("apple", "apple")</span>).</li>
+                    <li>Immutable: Elements cannot be modified after creation (e.g., <span class="code">mytuple[0] = "pear"</span> raises an error).</li>
+                    <li>Mixed types: Can hold different data types (e.g., <span class="code">(1, "text", True)</span>).</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Tuple Operations</h2>
+                <p>Tuples support limited methods due to their immutability, but operations like concatenation and repetition are available:</p>
+                <table class="tuple-table">
+                    <tr><th>Operation</th><th>Description</th><th>Example</th></tr>
+                    <tr><td class="code">len()</td><td>Get length of tuple</td><td class="code">len(mytuple) → 3</td></tr>
+                    <tr><td class="code">count()</td><td>Count occurrences</td><td class="code">mytuple.count("apple") → 2</td></tr>
+                    <tr><td class="code">index()</td><td>Get index of item</td><td class="code">mytuple.index("banana") → 1</td></tr>
+                    <tr><td class="code">+</td><td>Concatenate tuples</td><td class="code">mytuple + ("orange",)</td></tr>
+                    <tr><td class="code">*</td><td>Repeat tuple</td><td class="code">mytuple * 2</td></tr>
+                </table>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# Tuple operation examples
+mytuple = ("apple", "banana", "apple", "cherry")
+print(len(mytuple))           # Output: 4
+print(mytuple.count("apple")) # Output: 2
+print(mytuple.index("banana")) # Output: 1
+newtuple = mytuple + ("orange",) # Output: ('apple', 'banana', 'apple', 'cherry', 'orange')
+print(newtuple * 2)           # Output: ('apple', 'banana', 'apple', 'cherry', 'orange', 'apple', 'banana', 'apple', 'cherry', 'orange')
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tuple Slicing</h2>
+                <p>Tuple slicing allows you to access subtuple using the syntax <span class="code">[start:stop:step]</span>, where <span class="code">start</span> is inclusive and <span class="code">stop</span> is exclusive.</p>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# Tuple slicing examples
+numbers = (0, 1, 2, 3, 4, 5)
+print(numbers[1:3])    # Output: (1, 2)
+print(numbers[::2])    # Output: (0, 2, 4)
+print(numbers[-2:])    # Output: (4, 5)
+print(numbers[::-1])   # Output: (5, 4, 3, 2, 1, 0)
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Python Tuples Exercises (Quiz)</h2>
+                <h3>Test Your Knowledge</h3>
+
+                <!-- Question 1: Multiple Choice -->
+                <div class="quiz-question">
+                    <p>1. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+mytuple = ("apple", "banana", "cherry")
+print(mytuple[1])
+                        </pre>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q1" value="a"> a) apple</label>
+                        <label><input type="radio" name="q1" value="b"> b) banana</label>
+                        <label><input type="radio" name="q1" value="c"> c) cherry</label>
+                        <label><input type="radio" name="q1" value="d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q1', 'b', this)" aria-label="Check answer for question 1">Check Answer</button>
+                    <div class="result"></div>
+                </div>
+
+                <!-- Question 2: True/False -->
+                <div class="quiz-question">
+                    <p>2. Tuples in Python are immutable, meaning their elements cannot be changed after creation.</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q2" value="true"> True</label>
+                        <label><input type="radio" name="q2" value="false"> False</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q2', 'true', this)" aria-label="Check answer for question 2">Check Answer</button>
+                    <div class="result"></div>
+                </div>
+
+                <!-- Question 3: Multiple Choice -->
+                <div class="quiz-question">
+                    <p>3. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+numbers = (0, 1, 2, 3, 4, 5)
+print(numbers[1:3])
+                        </pre>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q3" value="a"> a) (0, 1)</label>
+                        <label><input type="radio" name="q3" value="b"> b) (1, 2)</label>
+                        <label><input type="radio" name="q3" value="c"> c) (1, 2, 3)</label>
+                        <label><input type="radio" name="q3" value="d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q3', 'b', this)" aria-label="Check answer for question 3">Check Answer</button>
+                    <div class="result"></div>
+                </div>
+
+                <!-- Question 4: Multiple Choice -->
+                <div class="quiz-question">
+                    <p>4. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+mytuple = ("apple", "banana", "apple")
+print(mytuple.count("apple"))
+                        </pre>
+                    </div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q4" value="a"> a) 1</label>
+                        <label><input type="radio" name="q4" value="b"> b) 2</label>
+                        <label><input type="radio" name="q4" value="c"> c) 3</label>
+                        <label><input type="radio" name="q4" value="d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q4', 'b', this)" aria-label="Check answer for question 4">Check Answer</button>
+                    <div class="result"></div>
+                </div>
+
+                <!-- Question 5: Coding Challenge -->
+                <div class="quiz-question">
+                    <p>5. Write a Python code snippet to create a tuple with two elements, concatenate another tuple with two elements, and print the length of the resulting tuple.</p>
+                    <div class="code-container">
+                        <textarea class="code-input" id="codeInput" placeholder="Enter your Python code here..." aria-label="Enter your Python code"></textarea>
+                    </div>
+                    <button class="btn" onclick="checkCodeAnswer(this)" aria-label="Check code answer">Submit Code</button>
+                    <div class="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Object to store timeout IDs for buttons to prevent overlapping timeouts
+        const copyTimeouts = new Map();
+
+        /**
+         * Copies the text of the nearest code block to the clipboard.
+         * @param {HTMLButtonElement} button - The copy button clicked.
+         */
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling?.querySelector('pre');
+            if (!codeBlock) {
+                console.error('No code block found for copying.');
+                return;
+            }
+
+            navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                if (copyTimeouts.has(button)) {
+                    clearTimeout(copyTimeouts.get(button));
+                }
+                button.textContent = 'Copied!';
+                const timeoutId = setTimeout(() => {
+                    button.textContent = 'Copy';
+                    copyTimeouts.delete(button);
+                }, 2000);
+                copyTimeouts.set(button, timeoutId);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Error';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+            });
+        }
+
+        /**
+         * Checks the selected answer for a quiz question and displays feedback.
+         * @param {string} questionName - The name attribute of the radio inputs.
+         * @param {string} correctAnswer - The correct answer value.
+         * @param {HTMLButtonElement} button - The check answer button clicked.
+         */
+        function checkAnswer(questionName, correctAnswer, button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+            const resultDiv = button.nextElementSibling;
+
+            if (!resultDiv) {
+                console.error('Result div not found for question:', questionName);
+                button.disabled = false;
+                return;
+            }
+
+            resultDiv.style.display = 'block';
+            if (selected) {
+                if (selected.value === correctAnswer) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = 'Correct! ' + getExplanation(questionName);
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. ' + getExplanation(questionName);
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please select an answer.';
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+
+        /**
+         * Provides explanations for quiz questions.
+         * @param {string} questionName - The name attribute of the question.
+         * @returns {string} Explanation for the question.
+         */
+        function getExplanation(questionName) {
+            const explanations = {
+                q1: 'Tuples use zero-based indexing, so mytuple[1] accesses the second element, "banana".',
+                q2: 'Tuples are immutable, meaning their elements cannot be changed after creation.',
+                q3: 'Slicing numbers[1:3] includes elements from index 1 to 2, resulting in (1, 2).',
+                q4: 'The count("apple") method returns the number of occurrences of "apple", which is 2.'
+            };
+            return explanations[questionName] || 'No explanation available.';
+        }
+
+        /**
+         * Validates the user's code for the coding challenge.
+         * @param {HTMLButtonElement} button - The submit button clicked.
+         */
+        function checkCodeAnswer(button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const resultDiv = button.nextElementSibling;
+            const codeInput = document.getElementById('codeInput');
+            if (!resultDiv || !codeInput) {
+                console.error('Result div or code input not found.');
+                button.disabled = false;
+                return;
+            }
+
+            const userCode = codeInput.value.trim();
+            resultDiv.style.display = 'block';
+
+            // Basic validation checks
+            const hasTupleCreation = /^\s*([a-zA-Z_]\w*)\s*=\s*\([^)]*\)/.test(userCode);
+            const hasConcatenation = /\+/.test(userCode);
+            const hasLen = /len\s*\(/.test(userCode);
+            const hasPrint = /print\s*\(/.test(userCode);
+
+            if (userCode === '') {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please enter some code.';
+            } else if (hasTupleCreation && hasConcatenation && hasLen && hasPrint) {
+                resultDiv.className = 'result correct';
+                resultDiv.textContent = 'Correct! Your code creates a tuple, concatenates another tuple, and prints the length.\n\nExample output: 4';
+            } else {
+                resultDiv.className = 'result incorrect';
+                let feedback = 'Incorrect. Your code is missing one or more required elements:\n';
+                if (!hasTupleCreation) feedback += '- Tuple creation (e.g., mytuple = (1, 2))\n';
+                if (!hasConcatenation) feedback += '- Tuple concatenation (e.g., + (3, 4))\n';
+                if (!hasLen) feedback += '- The len() function\n';
+                if (!hasPrint) feedback += '- A print() statement\n';
+                feedback += '\nTry this:\nmytuple = (1, 2)\nnewtuple = mytuple + (3, 4)\nprint(len(newtuple))';
+                resultDiv.textContent = feedback;
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
