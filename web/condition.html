@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python If-Else Tutorial & Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #1877F2;
+            --secondary-blue: #4267B2;
+            --accent-blue: #2D88FF;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0a0a0a;
+            --text-color: #ffffff;
+            --bg-light: #242526;
+            --text-light: #E4E6EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: var(--darker-bg);
+            border-bottom: 1px solid rgba(45, 136, 255, 0.1);
+        }
+
+        header h1 {
+            color: var(--accent-blue);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--darker-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .section h2, .section h3 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .if-table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .if-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .if-table th, .if-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .if-table th {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #f8f8f2;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .reset-btn {
+            background: #ff4444;
+            margin-top: 1rem;
+        }
+
+        .reset-btn:hover {
+            background: #cc0000;
+        }
+
+        .quiz-question {
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-options label {
+            background: rgba(24, 119, 242, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-options label:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 3px solid green;
+        }
+
+        .incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 3px solid red;
+        }
+
+        textarea.code-input {
+            width: 100%;
+            min-height: 100px;
+            background: #2d2d2d;
+            color: var(--text-color);
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        canvas {
+            max-width: 100%;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fab fa-python"></i> Python If-Else</h1>
+        <p>Complete guide to Python's conditional statements</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <div class="section">
+                <h2>If-Else Basics</h2>
+                <p>Conditional statements in Python (`if`, `elif`, `else`) allow programs to make decisions based on conditions. They evaluate expressions to `True` or `False` and execute corresponding code blocks.</p>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# Basic if-else example
+age = 18
+if age >= 18:
+    print("You are an adult.")
+else:
+    print("You are a minor.")
+# Output: You are an adult.
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+                <p>Key characteristics:</p>
+                <ul>
+                    <li>Indentation: Code blocks under `if`, `elif`, and `else` must be indented (typically 4 spaces).</li>
+                    <li>Boolean evaluation: Conditions must evaluate to `True` or `False` (e.g., <span class="code">age >= 18</span>).</li>
+                    <li>Optional clauses: `elif` and `else` are optional; `if` can stand alone.</li>
+                    <li>Nested conditions: `if` statements can be nested for complex logic.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>If-Else Examples</h2>
+                <p>Conditional statements support various patterns for decision-making:</p>
+                <div class="if-table-container">
+                    <table class="if-table">
+                        <tr><th>Pattern</th><th>Description</th><th>Example</th></tr>
+                        <tr><td class="code">if</td><td>Execute if condition is True</td><td class="code">if x > 0: print("Positive")</td></tr>
+                        <tr><td class="code">if-else</td><td>Execute one of two blocks</td><td class="code">if x % 2 == 0: print("Even") else: print("Odd")</td></tr>
+                        <tr><td class="code">if-elif-else</td><td>Check multiple conditions</td><td class="code">if x > 0: print("Positive") elif x < 0: print("Negative") else: print("Zero")</td></tr>
+                        <tr><td class="code">Nested if</td><td>Conditions within conditions</td><td class="code">if x > 0: if x < 10: print("Single digit")</td></tr>
+                        <tr><td class="code">and/or</td><td>Combine conditions</td><td class="code">if x > 0 and x < 100: print("In range")</td></tr>
+                    </table>
+                </div>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# If-elif-else example
+score = 85
+if score >= 90:
+    print("Grade: A")
+elif score >= 80:
+    print("Grade: B")
+elif score >= 70:
+    print("Grade: C")
+else:
+    print("Grade: F")
+# Output: Grade: B
+
+# Nested if example
+number = 15
+if number > 0:
+    if number % 2 == 0:
+        print("Positive even number")
+    else:
+        print("Positive odd number")
+# Output: Positive odd number
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+                <h3>Visualizing If-Else Decisions</h3>
+                <p>Below is a bar chart showing the frequency of decision paths for a grading system based on score ranges.</p>
+                <canvas id="ifChart" aria-label="Bar chart of if-else decision paths"></canvas>
+            </div>
+
+            <div class="section">
+                <h2>Python If-Else Exercises (Quiz)</h2>
+                <h3>Test Your Knowledge</h3>
+                <button class="btn reset-btn" onclick="resetQuiz()" aria-label="Reset quiz answers">Reset Quiz</button>
+
+                <!-- Question 1: Multiple Choice -->
+                <div class="quiz-question">
+                    <p id="q1-label">1. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+x = 10
+if x > 5:
+    print("Big")
+else:
+    print("Small")
+                        </pre>
+                    </div>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q1-label">
+                        <label><input type="radio" name="q1" value="a" aria-label="Option a"> a) Big</label>
+                        <label><input type="radio" name="q1" value="b" aria-label="Option b"> b) Small</label>
+                        <label><input type="radio" name="q1" value="c" aria-label="Option c"> c) Nothing</label>
+                        <label><input type="radio" name="q1" value="d" aria-label="Option d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q1', 'a', this)" aria-label="Check answer for question 1">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 2: True/False -->
+                <div class="quiz-question">
+                    <p id="q2-label">2. The `else` clause is mandatory in an `if` statement.</p>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q2-label">
+                        <label><input type="radio" name="q2" value="true" aria-label="True"> True</label>
+                        <label><input type="radio" name="q2" value="false" aria-label="False"> False</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q2', 'false', this)" aria-label="Check answer for question 2">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 3: Multiple Choice -->
+                <div class="quiz-question">
+                    <p id="q3-label">3. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+score = 75
+if score >= 80:
+    print("Pass")
+elif score >= 60:
+    print("Conditional Pass")
+else:
+    print("Fail")
+                        </pre>
+                    </div>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q3-label">
+                        <label><input type="radio" name="q3" value="a" aria-label="Option a"> a) Pass</label>
+                        <label><input type="radio" name="q3" value="b" aria-label="Option b"> b) Conditional Pass</label>
+                        <label><input type="radio" name="q3" value="c" aria-label="Option c"> c) Fail</label>
+                        <label><input type="radio" name="q3" value="d" aria-label="Option d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q3', 'b', this)" aria-label="Check answer for question 3">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 4: Multiple Choice -->
+                <div class="quiz-question">
+                    <p id="q4-label">4. What will the following code do?</p>
+                    <div class="code-block">
+                        <pre>
+x = 5
+if x > 0:
+    if x < 10:
+        print("Single digit")
+                        </pre>
+                    </div>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q4-label">
+                        <label><input type="radio" name="q4" value="a" aria-label="Option a"> a) Print "Single digit"</label>
+                        <label><input type="radio" name="q4" value="b" aria-label="Option b"> b) Print nothing</label>
+                        <label><input type="radio" name="q4" value="c" aria-label="Option c"> c) Raise an error</label>
+                        <label><input type="radio" name="q4" value="d" aria-label="Option d"> d) Print "Single digit" twice</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q4', 'a', this)" aria-label="Check answer for question 4">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 5: Coding Challenge -->
+                <div class="quiz-question">
+                    <p id="q5-label">5. Write a Python code snippet to check if a number is positive, negative, or zero using if-elif-else, and print the result.</p>
+                    <div class="code-container">
+                        <textarea class="code-input" id="codeInput" placeholder="Enter your Python code here..." aria-label="Enter your Python code"></textarea>
+                    </div>
+                    <button class="btn" onclick="checkCodeAnswer(this)" aria-label="Check code answer">Submit Code</button>
+                    <div class="result" role="alert"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Object to store timeout IDs for buttons to prevent overlapping timeouts
+        const copyTimeouts = new Map();
+
+        /**
+         * Copies the text of the nearest code block to the clipboard.
+         * @param {HTMLButtonElement} button - The copy button clicked.
+         */
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling?.querySelector('pre');
+            if (!codeBlock) {
+                console.error('No code block found for copying.');
+                alert('Error: No code block found.');
+                return;
+            }
+
+            navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                if (copyTimeouts.has(button)) {
+                    clearTimeout(copyTimeouts.get(button));
+                }
+                button.textContent = 'Copied!';
+                const timeoutId = setTimeout(() => {
+                    button.textContent = 'Copy';
+                    copyTimeouts.delete(button);
+                }, 2000);
+                copyTimeouts.set(button, timeoutId);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Error';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+                alert('Failed to copy code.');
+            });
+        }
+
+        /**
+         * Checks the selected answer for a quiz question and displays feedback.
+         * @param {string} questionName - The name attribute of the radio inputs.
+         * @param {string} correctAnswer - The correct answer value.
+         * @param {HTMLButtonElement} button - The check answer button clicked.
+         */
+        function checkAnswer(questionName, correctAnswer, button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+            const resultDiv = button.nextElementSibling;
+
+            if (!resultDiv) {
+                console.error('Result div not found for question:', questionName);
+                button.disabled = false;
+                alert('Error: Unable to display result.');
+                return;
+            }
+
+            resultDiv.style.display = 'block';
+            if (selected) {
+                if (selected.value === correctAnswer) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = 'Correct! ' + getExplanation(questionName);
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. ' + getExplanation(questionName);
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please select an answer.';
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+
+        /**
+         * Provides explanations for quiz questions.
+         * @param {string} questionName - The name attribute of the question.
+         * @returns {string} Explanation for the question.
+         */
+        function getExplanation(questionName) {
+            const explanations = {
+                q1: 'Since x = 10 is greater than 5, the if block executes, printing "Big". See the If-Else Basics section for details.',
+                q2: 'The else clause is optional in an if statement; an if can stand alone. See the If-Else Basics section for details.',
+                q3: 'Since score = 75 is less than 80 but greater than or equal to 60, the elif block executes, printing "Conditional Pass". See the If-Else Examples section for details.',
+                q4: 'Since x = 5 is greater than 0 and less than 10, the nested if block executes, printing "Single digit". See the If-Else Examples section for details.'
+            };
+            return explanations[questionName] || 'No explanation available.';
+        }
+
+        /**
+         * Validates the user's code for the coding challenge.
+         * @param {HTMLButtonElement} button - The submit button clicked.
+         */
+        function checkCodeAnswer(button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const resultDiv = button.nextElementSibling;
+            const codeInput = document.getElementById('codeInput');
+            if (!resultDiv || !codeInput) {
+                console.error('Result div or code input not found.');
+                button.disabled = false;
+                alert('Error: Unable to process code.');
+                return;
+            }
+
+            const userCode = codeInput.value.trim();
+            resultDiv.style.display = 'block';
+
+            // Improved validation checks
+            const hasIf = /if\s+[^:]+:/.test(userCode);
+            const hasElif = /elif\s+[^:]+:/.test(userCode);
+            const hasElse = /else\s*:/.test(userCode);
+            const hasPrint = /print\s*\(\s*['"][^'"]+['"]\s*\)/g.test(userCode);
+            const printCount = (userCode.match(/print\s*\(\s*['"][^'"]+['"]\s*\)/g) || []).length;
+            const hasPositive = /if\s+[^:]+>\s*0\s*:/.test(userCode);
+            const hasNegative = /(?:if|elif)\s+[^:]+<\s*0\s*:/.test(userCode);
+            const hasZero = /(?:if|elif)\s+[^:]+==\s*0\s*:/.test(userCode);
+
+            if (userCode === '') {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please enter some code.';
+            } else if (hasIf && hasElif && hasElse && hasPrint && printCount >= 3 && hasPositive && hasNegative && hasZero) {
+                // Basic logic validation
+                try {
+                    const lines = userCode.split('\n');
+                    let conditions = 0;
+                    for (let line of lines) {
+                        line = line.trim();
+                        if (line.match(/if\s+[^:]+>\s*0\s*:/)) conditions++;
+                        if (line.match(/(?:if|elif)\s+[^:]+<\s*0\s*:/)) conditions++;
+                        if (line.match(/(?:if|elif)\s+[^:]+==\s*0\s*:/)) conditions++;
+                    }
+                    if (conditions === 3) {
+                        resultDiv.className = 'result correct';
+                        resultDiv.textContent = 'Correct! Your code uses if-elif-else to check if a number is positive, negative, or zero, and prints the result.';
+                    } else {
+                        resultDiv.className = 'result incorrect';
+                        resultDiv.textContent = `Incorrect. Expected three conditions (positive, negative, zero), but found ${conditions}. Try this:\nnumber = 0\nif number > 0:\n    print("Positive")\nelif number < 0:\n    print("Negative")\nelse:\n    print("Zero")`;
+                    }
+                } catch (e) {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. Invalid code structure. Try this:\nnumber = 0\nif number > 0:\n    print("Positive")\nelif number < 0:\n    print("Negative")\nelse:\n    print("Zero")';
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                let feedback = 'Incorrect. Your code is missing one or more required elements:\n';
+                if (!hasIf) feedback += '- An if statement\n';
+                if (!hasElif) feedback += '- An elif statement\n';
+                if (!hasElse) feedback += '- An else statement\n';
+                if (printCount < 3) feedback += `- At least three print() statements (found ${printCount})\n`;
+                if (!hasPositive) feedback += '- A condition for positive numbers (e.g., number > 0)\n';
+                if (!hasNegative) feedback += '- A condition for negative numbers (e.g., number < 0)\n';
+                if (!hasZero) feedback += '- A condition for zero (e.g., number == 0)\n';
+                feedback += '\nTry this:\nnumber = 0\nif number > 0:\n    print("Positive")\nelif number < 0:\n    print("Negative")\nelse:\n    print("Zero")';
+                resultDiv.textContent = feedback;
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+
+        /**
+         * Resets all quiz answers and clears feedback.
+         */
+        function resetQuiz() {
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelector('#codeInput').value = '';
+            document.querySelectorAll('.result').forEach(div => {
+                div.style.display = 'none';
+                div.textContent = '';
+                div.className = 'result';
+            });
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.disabled = false;
+            });
+        }
+
+        /**
+         * Initializes Chart.js for if-else decision visualization.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('ifChart')?.getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['A (≥90)', 'B (80-89)', 'C (70-79)', 'F (<70)'],
+                        datasets: [{
+                            label: 'Frequency of Grades',
+                            data: [10, 20, 30, 40],
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                            borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Number of Students' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: 'Grade Distribution Using If-Elif-Else' }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
