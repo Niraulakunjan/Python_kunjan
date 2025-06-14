@@ -1,38 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Same head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Dictionaries Tutorial & Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #1877F2;
+            --secondary-blue: #4267B2;
+            --accent-blue: #2D88FF;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0a0a0a;
+            --text-color: #ffffff;
+            --bg-light: #242526;
+            --text-light: #E4E6EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: var(--darker-bg);
+            border-bottom: 1px solid rgba(45, 136, 255, 0.1);
+        }
+
+        header h1 {
+            color: var(--accent-blue);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--darker-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .section h2, .section h3 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        .dict-table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .dict-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dict-table th, .dict-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dict-table th {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #f8f8f2;
+        }
+
+        .code-container {
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .reset-btn {
+            background: #ff4444;
+            margin-top: 1rem;
+        }
+
+        .reset-btn:hover {
+            background: #cc0000;
+        }
+
+        .quiz-question {
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-options label {
+            background: rgba(24, 119, 242, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-options label:hover {
+            background: rgba(24, 119, 242, 0.2);
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 3px solid green;
+        }
+
+        .incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 3px solid red;
+        }
+
+        textarea.code-input {
+            width: 100%;
+            min-height: 100px;
+            background: #2d2d2d;
+            color: var(--text-color);
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        canvas {
+            max-width: 100%;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Python Dictionaries</h1>
-        <p>Key-value pair data structure in Python</p>
+        <h1><i class="fab fa-python"></i> Python Dictionaries</h1>
+        <p>Complete guide to Python's dictionary data structure</p>
     </header>
 
     <div class="container">
         <div class="content">
             <div class="section">
-                <h3>Dictionary Basics</h3>
-                <p>Dictionaries store data as key-value pairs:</p>
-                <p class="code">person = {"name": "John", "age": 30}</p>
-                <p>Key features:</p>
+                <h2>Dictionary Basics</h2>
+                <p>Dictionaries are ordered (since Python 3.7), mutable collections of key-value pairs. They are ideal for storing data with unique keys for quick lookups.</p>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# Dictionary creation
+mydict = {"name": "Alice", "age": 25, "city": "New York"}
+print(mydict)        # Output: {'name': 'Alice', 'age': 25, 'city': 'New York'}
+print(type(mydict))  # Output: <class 'dict'>
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+                <p>Key characteristics:</p>
                 <ul>
-                    <li>Unordered (Python 3.7+ maintains insertion order)</li>
-                    <li>Keys must be immutable (strings, numbers, tuples)</li>
-                    <li>Values can be any type</li>
+                    <li>Ordered: Maintains insertion order (e.g., <span class="code">mydict["name"]</span> accesses "Alice").</li>
+                    <li>Unique keys: Duplicate keys are not allowed; later values overwrite earlier ones (e.g., <span class="code">{"name": "Alice", "name": "Bob"}</span> becomes <span class="code">{"name": "Bob"}</span>).</li>
+                    <li>Mutable: Key-value pairs can be added, modified, or removed.</li>
+                    <li>Mixed types: Keys must be immutable (e.g., strings, numbers, tuples); values can be any type.</li>
                 </ul>
             </div>
 
             <div class="section">
-                <h3>Dictionary Methods</h3>
-                <table class="operator-table">
-                    <tr><th>Method</th><th>Description</th><th>Example</th></tr>
-                    <tr><td class="code">keys()</td><td>Get all keys</td><td class="code">person.keys()</td></tr>
-                    <tr><td class="code">values()</td><td>Get all values</td><td class="code">person.values()</td></tr>
-                    <tr><td class="code">get()</td><td>Safe key access</td><td class="code">person.get("name")</td></tr>
-                </table>
+                <h2>Dictionary Operations</h2>
+                <p>Dictionaries support various methods and operations for managing key-value pairs:</p>
+                <div class="dict-table-container">
+                    <table class="dict-table">
+                        <tr><th>Operation</th><th>Description</th><th>Example</th></tr>
+                        <tr><td class="code">len()</td><td>Get number of key-value pairs</td><td class="code">len(mydict) → 3</td></tr>
+                        <tr><td class="code">[]</td><td>Add or update key-value pair</td><td class="code">mydict["country"] = "USA"</td></tr>
+                        <tr><td class="code">get()</td><td>Get value for key (None if absent)</td><td class="code">mydict.get("name")</td></tr>
+                        <tr><td class="code">pop()</td><td>Remove and return value for key</td><td class="code">mydict.pop("age")</td></tr>
+                        <tr><td class="code">keys()</td><td>Get all keys</td><td class="code">mydict.keys()</td></tr>
+                        <tr><td class="code">values()</td><td>Get all values</td><td class="code">mydict.values()</td></tr>
+                        <tr><td class="code">items()</td><td>Get all key-value pairs</td><td class="code">mydict.items()</td></tr>
+                        <tr><td class="code">update()</td><td>Merge another dictionary</td><td class="code">mydict.update({"city": "Boston"})</td></tr>
+                    </table>
+                </div>
+                <div class="code-container">
+                    <div class="code-block">
+                        <pre>
+# Dictionary operation examples
+mydict = {"name": "Alice", "age": 25}
+mydict["city"] = "New York"       # Adds 'city': 'New York'
+mydict.update({"age": 26, "country": "USA"}) # Updates 'age', adds 'country'
+print(mydict.get("name"))         # Output: Alice
+print(len(mydict))                # Output: 3
+print(mydict.keys())              # Output: dict_keys(['name', 'age', 'city', 'country'])
+print(mydict.values())            # Output: dict_values(['Alice', 26, 'New York', 'USA'])
+mydict.pop("city")                # Removes 'city': 'New York'
+                        </pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+                </div>
+                <h3>Visualizing Dictionary Operations</h3>
+                <p>Below is a bar chart showing the number of key-value pairs after various operations on a dictionary.</p>
+                <canvas id="dictChart" aria-label="Bar chart of dictionary operations"></canvas>
+            </div>
+
+            <div class="section">
+                <h2>Python Dictionaries Exercises (Quiz)</h2>
+                <h3>Test Your Knowledge</h3>
+                <button class="btn reset-btn" onclick="resetQuiz()" aria-label="Reset quiz answers">Reset Quiz</button>
+
+                <!-- Question 1: Multiple Choice -->
+                <div class="quiz-question">
+                    <p id="q1-label">1. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+mydict = {"name": "Alice", "name": "Bob"}
+print(mydict)
+                        </pre>
+                    </div>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q1-label">
+                        <label><input type="radio" name="q1" value="a" aria-label="Option a"> a) {'name': 'Alice', 'name': 'Bob'}</label>
+                        <label><input type="radio" name="q1" value="b" aria-label="Option b"> b) {'name': 'Bob'}</label>
+                        <label><input type="radio" name="q1" value="c" aria-label="Option c"> c) {'name': 'Alice'}</label>
+                        <label><input type="radio" name="q1" value="d" aria-label="Option d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q1', 'b', this)" aria-label="Check answer for question 1">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 2: True/False -->
+                <div class="quiz-question">
+                    <p id="q2-label">2. Dictionaries in Python maintain the order of key-value pairs as they are added (since Python 3.7).</p>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q2-label">
+                        <label><input type="radio" name="q2" value="true" aria-label="True"> True</label>
+                        <label><input type="radio" name="q2" value="false" aria-label="False"> False</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q2', 'true', this)" aria-label="Check answer for question 2">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 3: Multiple Choice -->
+                <div class="quiz-question">
+                    <p id="q3-label">3. What will be the output of the following code?</p>
+                    <div class="code-block">
+                        <pre>
+mydict = {"name": "Alice", "age": 25}
+print(mydict.get("city", "Unknown"))
+                        </pre>
+                    </div>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q3-label">
+                        <label><input type="radio" name="q3" value="a" aria-label="Option a"> a) Alice</label>
+                        <label><input type="radio" name="q3" value="b" aria-label="Option b"> b) Unknown</label>
+                        <label><input type="radio" name="q3" value="c" aria-label="Option c"> c) None</label>
+                        <label><input type="radio" name="q3" value="d" aria-label="Option d"> d) Error</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q3', 'b', this)" aria-label="Check answer for question 3">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 4: Multiple Choice -->
+                <div class="quiz-question">
+                    <p id="q4-label">4. What will the following code do to the dictionary?</p>
+                    <div class="code-block">
+                        <pre>
+mydict = {"name": "Alice", "age": 25}
+mydict["age"] = 26
+                        </pre>
+                    </div>
+                    <div class="quiz-options" role="radiogroup" aria-labelledby="q4-label">
+                        <label><input type="radio" name="q4" value="a" aria-label="Option a"> a) Add a new key 'age' with value 26</label>
+                        <label><input type="radio" name="q4" value="b" aria-label="Option b"> b) Update 'age' to 26</label>
+                        <label><input type="radio" name="q4" value="c" aria-label="Option c"> c) Raise an error</label>
+                        <label><input type="radio" name="q4" value="d" aria-label="Option d"> d) Do nothing</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q4', 'b', this)" aria-label="Check answer for question 4">Check Answer</button>
+                    <div class="result" role="alert"></div>
+                </div>
+
+                <!-- Question 5: Coding Challenge -->
+                <div class="quiz-question">
+                    <p id="q5-label">5. Write a Python code snippet to create a dictionary with two key-value pairs, add two more key-value pairs, and print the length of the final dictionary.</p>
+                    <div class="code-container">
+                        <textarea class="code-input" id="codeInput" placeholder="Enter your Python code here..." aria-label="Enter your Python code"></textarea>
+                    </div>
+                    <button class="btn" onclick="checkCodeAnswer(this)" aria-label="Check code answer">Submit Code</button>
+                    <div class="result" role="alert"></div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Object to store timeout IDs for buttons to prevent overlapping timeouts
+        const copyTimeouts = new Map();
+
+        /**
+         * Copies the text of the nearest code block to the clipboard.
+         * @param {HTMLButtonElement} button - The copy button clicked.
+         */
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling?.querySelector('pre');
+            if (!codeBlock) {
+                console.error('No code block found for copying.');
+                alert('Error: No code block found.');
+                return;
+            }
+
+            navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                if (copyTimeouts.has(button)) {
+                    clearTimeout(copyTimeouts.get(button));
+                }
+                button.textContent = 'Copied!';
+                const timeoutId = setTimeout(() => {
+                    button.textContent = 'Copy';
+                    copyTimeouts.delete(button);
+                }, 2000);
+                copyTimeouts.set(button, timeoutId);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Error';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+                alert('Failed to copy code.');
+            });
+        }
+
+        /**
+         * Checks the selected answer for a quiz question and displays feedback.
+         * @param {string} questionName - The name attribute of the radio inputs.
+         * @param {string} correctAnswer - The correct answer value.
+         * @param {HTMLButtonElement} button - The check answer button clicked.
+         */
+        function checkAnswer(questionName, correctAnswer, button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+            const resultDiv = button.nextElementSibling;
+
+            if (!resultDiv) {
+                console.error('Result div not found for question:', questionName);
+                button.disabled = false;
+                alert('Error: Unable to display result.');
+                return;
+            }
+
+            resultDiv.style.display = 'block';
+            if (selected) {
+                if (selected.value === correctAnswer) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = 'Correct! ' + getExplanation(questionName);
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. ' + getExplanation(questionName);
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please select an answer.';
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+
+        /**
+         * Provides explanations for quiz questions.
+         * @param {string} questionName - The name attribute of the question.
+         * @returns {string} Explanation for the question.
+         */
+        function getExplanation(questionName) {
+            const explanations = {
+                q1: 'Dictionaries only store unique keys; duplicate keys overwrite earlier values, so {"name": "Alice", "name": "Bob"} becomes {"name": "Bob"}. See the Dictionary Basics section for details.',
+                q2: 'Since Python 3.7, dictionaries maintain insertion order of key-value pairs. See the Dictionary Basics section for details.',
+                q3: 'The get() method returns the value for the key if it exists, or the default value ("Unknown") if not. See the Dictionary Operations section for details.',
+                q4: 'Assigning a value to an existing key updates it, so mydict["age"] = 26 updates "age" to 26. See the Dictionary Operations section for details.'
+            };
+            return explanations[questionName] || 'No explanation available.';
+        }
+
+        /**
+         * Validates the user's code for the coding challenge.
+         * @param {HTMLButtonElement} button - The submit button clicked.
+         */
+        function checkCodeAnswer(button) {
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const resultDiv = button.nextElementSibling;
+            const codeInput = document.getElementById('codeInput');
+            if (!resultDiv || !codeInput) {
+                console.error('Result div or code input not found.');
+                button.disabled = false;
+                alert('Error: Unable to process code.');
+                return;
+            }
+
+            const userCode = codeInput.value.trim();
+            resultDiv.style.display = 'block';
+
+            // Improved validation checks
+            const hasDictCreation = /(?:\{\s*['"][^'"]+['"]\s*:\s*[^,]+,\s*['"][^'"]+['"]\s*:\s*[^}]+}|dict\s*\(\s*\[?\s*\(['"][^'"]+['"][^)]+\)\s*,?\s*\(['"][^'"]+['"][^)]+\)\s*\]?\))/.test(userCode);
+            const addCount = (userCode.match(/\[\s*['"][^'"]+['"]\s*\]\s*=\s*[^;]+/g) || []).length;
+            const hasLen = /len\s*\(\s*\w+\s*\)/.test(userCode);
+            const hasPrint = /print\s*\(\s*len\s*\(\s*\w+\s*\)\s*\)/.test(userCode);
+
+            if (userCode === '') {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Please enter some code.';
+            } else if (hasDictCreation && addCount >= 2 && hasLen && hasPrint) {
+                // Basic output validation
+                try {
+                    const lines = userCode.split('\n');
+                    let dictName = '';
+                    let dictPairs = 0;
+                    for (let line of lines) {
+                        line = line.trim();
+                        if (line.match(/^\w+\s*=\s*(?:\{[^}]+\}|dict\s*\([^)]+\))/)) {
+                            dictName = line.match(/^\w+/)[0];
+                            const pairs = line.match(/['"][^'"]+['"]\s*:\s*[^,]+/g) || [];
+                            dictPairs = pairs.length;
+                        } else if (line.match(/\[\s*['"][^'"]+['"]\s*\]\s*=\s*[^;]+/)) {
+                            dictPairs++;
+                        }
+                    }
+                    if (dictPairs === 4 && userCode.includes(`print(len(${dictName}))`)) {
+                        resultDiv.className = 'result correct';
+                        resultDiv.textContent = 'Correct! Your code creates a dictionary with two key-value pairs, adds two more, and prints the length (4).';
+                    } else {
+                        resultDiv.className = 'result incorrect';
+                        resultDiv.textContent = `Incorrect. Expected a dictionary with 4 key-value pairs and a print(len()) output of 4, but found ${dictPairs} pairs. Try this:\nmydict = {"name": "Alice", "age": 25}\nmydict["city"] = "New York"\nmydict["country"] = "USA"\nprint(len(mydict))`;
+                    }
+                } catch (e) {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = 'Incorrect. Invalid code structure. Try this:\nmydict = {"name": "Alice", "age": 25}\nmydict["city"] = "New York"\nmydict["country"] = "USA"\nprint(len(mydict))';
+                }
+            } else {
+                resultDiv.className = 'result incorrect';
+                let feedback = 'Incorrect. Your code is missing one or more required elements:\n';
+                if (!hasDictCreation) feedback += '- Dictionary creation (e.g., {"name": "Alice", "age": 25} or dict([("name", "Alice"), ("age", 25)]))\n';
+                if (addCount < 2) feedback += `- At least two key-value pair additions (found ${addCount})\n`;
+                if (!hasLen) feedback += '- The len() function\n';
+                if (!hasPrint) feedback += '- A print(len()) statement\n';
+                feedback += '\nTry this:\nmydict = {"name": "Alice", "age": 25}\nmydict["city"] = "New York"\nmydict["country"] = "USA"\nprint(len(mydict))';
+                resultDiv.textContent = feedback;
+            }
+
+            setTimeout(() => {
+                button.disabled = false;
+            }, 2000);
+        }
+
+        /**
+         * Resets all quiz answers and clears feedback.
+         */
+        function resetQuiz() {
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelector('#codeInput').value = '';
+            document.querySelectorAll('.result').forEach(div => {
+                div.style.display = 'none';
+                div.textContent = '';
+                div.className = 'result';
+            });
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.disabled = false;
+            });
+        }
+
+        /**
+         * Initializes Chart.js for dictionary operations visualization.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('dictChart')?.getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Initial', 'After Add', 'After Update', 'After Pop'],
+                        datasets: [{
+                            label: 'Number of Key-Value Pairs',
+                            data: [2, 3, 3, 2],
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                            borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Key-Value Pairs' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: 'Dictionary Size After Operations' }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
