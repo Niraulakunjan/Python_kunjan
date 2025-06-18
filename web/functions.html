@@ -1,44 +1,1109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Same head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Python Functions: Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1877F2;
+            --secondary-blue: #4267B2;
+            --accent-blue: #2D88FF;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0a0a0a;
+            --text-color: #ffffff;
+            --success-green: #28a745;
+            --error-red: #dc3545;
+            --warning-yellow: #ffc107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--accent-blue);
+            margin: 1.5rem 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary-blue);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+        }
+
+        .section {
+            background: var(--darker-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(45, 136, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            position: relative;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        pre {
+            color: #e6e6e6;
+            font-family: 'Consolas', monospace;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+
+        .highlight {
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .note {
+            background: rgba(24, 119, 242, 0.1);
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid var(--warning-yellow);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .tip {
+            background: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid var(--success-green);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .quiz-container {
+            background: linear-gradient(145deg, #1a2a4a, #0f172a);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            border: 1px solid rgba(66, 103, 178, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-header h2 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border: none;
+        }
+
+        .quiz-progress {
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-question {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(66, 103, 178, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .quiz-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-question-number {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-option {
+            background: rgba(24, 119, 242, 0.1);
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(45, 136, 255, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(24, 119, 242, 0.2);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: var(--success-green);
+            color: white;
+            border-color: var(--success-green);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--error-red);
+            color: white;
+            border-color: var(--error-red);
+        }
+
+        .quiz-option-prefix {
+            margin-right: 10px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .quiz-option.selected .quiz-option-prefix,
+        .quiz-option.correct .quiz-option-prefix,
+        .quiz-option.incorrect .quiz-option-prefix {
+            color: white;
+        }
+
+        .quiz-result {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            text-align: center;
+        }
+
+        .quiz-score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .quiz-feedback {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-details {
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .quiz-detail-item {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .quiz-detail-correct {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+        }
+
+        .quiz-detail-incorrect {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--error-red);
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            background: rgba(45, 136, 255, 0.2);
+            border: none;
+            color: var(--accent-blue);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .code-container {
+            position: relative;
+        }
+
+        .function-diagram {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-family: 'Consolas', monospace;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .function-signature {
+            color: #e6e6e6;
+            margin-bottom: 1rem;
+        }
+
+        .function-params {
+            color: #f8f8f2;
+            margin-left: 2rem;
+        }
+
+        .function-return {
+            color: #a6e22e;
+            margin-left: 2rem;
+        }
+
+        .function-docstring {
+            color: #ae81ff;
+            margin-left: 2rem;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(45, 136, 255, 0.1);
+            color: var(--accent-blue);
+        }
+
+        tr:hover {
+            background: rgba(45, 136, 255, 0.05);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Python Functions</h1>
-        <p>Creating reusable code blocks in Python</p>
-    </header>
-
     <div class="container">
-        <div class="content">
-            <div class="section">
-                <h3>Function Definition</h3>
-                <p>Functions are defined using the <span class="code">def</span> keyword:</p>
-                <p class="code">def greet(name):</p>
-                <p class="code">    return f"Hello, {name}!"</p>
-                <p>Key components:</p>
-                <ul>
-                    <li>Parameters (inputs)</li>
-                    <li>Docstring (optional documentation)</li>
-                    <li>Function body</li>
-                    <li>Return statement</li>
-                </ul>
+        <h1><i class="fab fa-python"></i> Mastering Python Functions</h1>
+        <p class="subtitle">A comprehensive guide to understanding, creating, and using functions in Python</p>
+
+        <div class="section">
+            <h2>Introduction to Functions</h2>
+            <p>Functions are the building blocks of readable, maintainable, and reusable code in Python. They allow you to encapsulate logic into named blocks that can be executed whenever needed.</p>
+            
+            <div class="note">
+                <p><strong>Key Concept:</strong> A function is a block of organized, reusable code that performs a single, related action.</p>
             </div>
 
-            <div class="section">
-                <h3>Function Arguments</h3>
-                <p>Python supports different argument types:</p>
-                <p class="code">def describe_pet(pet_name, animal_type="dog"):</p>
-                <p class="code">    print(f"I have a {animal_type} named {pet_name}")</p>
-                <p>Types of arguments:</p>
-                <ul>
-                    <li>Positional arguments</li>
-                    <li>Keyword arguments</li>
-                    <li>Default parameters</li>
-                    <li>Variable-length arguments (*args, **kwargs)</li>
-                </ul>
+            <h3>Why Use Functions?</h3>
+            <ul>
+                <li><strong>Code Reusability:</strong> Write once, use many times</li>
+                <li><strong>Modularity:</strong> Break complex problems into smaller parts</li>
+                <li><strong>Maintainability:</strong> Easier to debug and modify</li>
+                <li><strong>Abstraction:</strong> Hide implementation details</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Defining Functions</h2>
+            <p>Functions are defined using the <span class="highlight">def</span> keyword, followed by the function name, parameters in parentheses, and a colon.</p>
+            
+            <div class="function-diagram">
+                <div class="function-signature">def function_name(parameters):</div>
+                <div class="function-docstring">"""docstring - describes what the function does"""</div>
+                <div class="function-params"># function body - indented code block</div>
+                <div class="function-return">return [expression] # optional return statement</div>
+            </div>
+
+            <div class="code-block">
+                <pre>
+# Basic function example
+def greet(name):
+    """This function greets the person passed as parameter"""
+    return f"Hello, {name}!"
+
+# Calling the function
+message = greet("Alice")
+print(message)  # Output: Hello, Alice!</pre>
+            </div>
+
+            <div class="tip">
+                <p><strong>Best Practice:</strong> Always include a docstring (the multiline comment right after the function definition) to explain what your function does.</p>
             </div>
         </div>
+
+        <div class="section">
+            <h2>Function Parameters and Arguments</h2>
+            <p>Python functions can accept different types of parameters, making them extremely flexible.</p>
+            
+            <h3>1. Positional Arguments</h3>
+            <p>Arguments must be in the same order as the parameters.</p>
+            <div class="code-block">
+                <pre>
+def describe_pet(animal_type, pet_name):
+    """Display information about a pet."""
+    print(f"I have a {animal_type} named {pet_name}.")
+
+describe_pet('hamster', 'Harry')  # Correct order
+describe_pet('Harry', 'hamster')  # Incorrect order</pre>
+            </div>
+
+            <h3>2. Keyword Arguments</h3>
+            <p>Arguments identified by parameter names.</p>
+            <div class="code-block">
+                <pre>
+describe_pet(animal_type='hamster', pet_name='Harry')  # Explicit naming
+describe_pet(pet_name='Harry', animal_type='hamster')  # Order doesn't matter</pre>
+            </div>
+
+            <h3>3. Default Parameters</h3>
+            <p>Parameters with default values become optional.</p>
+            <div class="code-block">
+                <pre>
+def describe_pet(pet_name, animal_type='dog'):
+    """Display information about a pet with default type."""
+    print(f"I have a {animal_type} named {pet_name}.")
+
+describe_pet('Willie')  # Uses default 'dog'
+describe_pet('Harry', 'hamster')  # Overrides default</pre>
+            </div>
+
+            <div class="warning">
+                <p><strong>Important:</strong> Default parameters are evaluated only once when the function is defined, not each time it's called. Be careful with mutable defaults like lists or dictionaries.</p>
+            </div>
+
+            <h3>4. Variable-length Arguments (*args and **kwargs)</h3>
+            <p>For handling an unknown number of arguments.</p>
+            <div class="code-block">
+                <pre>
+# *args collects positional arguments as a tuple
+def make_pizza(*toppings):
+    """Summarize the pizza we're about to make."""
+    print("\nMaking a pizza with the following toppings:")
+    for topping in toppings:
+        print(f"- {topping}")
+
+make_pizza('pepperoni')
+make_pizza('mushrooms', 'green peppers', 'extra cheese')
+
+# **kwargs collects keyword arguments as a dictionary
+def build_profile(first, last, **user_info):
+    """Build a dictionary containing user information."""
+    user_info['first_name'] = first
+    user_info['last_name'] = last
+    return user_info
+
+user_profile = build_profile('albert', 'einstein',
+                            location='princeton',
+                            field='physics')
+print(user_profile)</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Return Values</h2>
+            <p>Functions can return values using the <span class="highlight">return</span> statement. A function can return any type of object, including other functions!</p>
+            
+            <div class="code-block">
+                <pre>
+# Simple return
+def get_formatted_name(first_name, last_name):
+    """Return a full name, neatly formatted."""
+    full_name = f"{first_name} {last_name}"
+    return full_name.title()
+
+musician = get_formatted_name('jimi', 'hendrix')
+print(musician)  # Output: Jimi Hendrix
+
+# Returning multiple values (as a tuple)
+def calculate(x, y):
+    """Return multiple calculations."""
+    sum = x + y
+    difference = x - y
+    product = x * y
+    quotient = x / y
+    return sum, difference, product, quotient
+
+results = calculate(10, 2)
+print(results)  # Output: (12, 8, 20, 5.0)</pre>
+            </div>
+
+            <div class="note">
+                <p><strong>Pro Tip:</strong> When returning multiple values, you can use tuple unpacking to assign them to separate variables:</p>
+                <div class="code-block">
+                    <pre>
+sum_res, diff_res, prod_res, quot_res = calculate(10, 2)</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Types of Functions</h2>
+            
+            <h3>1. Built-in Functions</h3>
+            <p>Python comes with many useful built-in functions:</p>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Function</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>len()</td>
+                        <td>Returns the length of an object</td>
+                        <td>len("Python") → 6</td>
+                    </tr>
+                    <tr>
+                        <td>type()</td>
+                        <td>Returns the type of an object</td>
+                        <td>type(42) → &lt;class 'int'&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>sum()</td>
+                        <td>Sums items of an iterable</td>
+                        <td>sum([1, 2, 3]) → 6</td>
+                    </tr>
+                    <tr>
+                        <td>max()</td>
+                        <td>Returns the largest item</td>
+                        <td>max(5, 10) → 10</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>2. User-defined Functions</h3>
+            <p>Functions you create yourself to solve specific problems.</p>
+            <div class="code-block">
+                <pre>
+def calculate_area(width, height):
+    """Calculate the area of a rectangle."""
+    return width * height
+
+area = calculate_area(5, 3)
+print(area)  # Output: 15</pre>
+            </div>
+
+            <h3>3. Lambda Functions</h3>
+            <p>Small anonymous functions defined with the <span class="highlight">lambda</span> keyword.</p>
+            <div class="code-block">
+                <pre>
+# Regular function
+def square(x):
+    return x * x
+
+# Equivalent lambda
+square = lambda x: x * x
+
+# Using lambda directly
+numbers = [1, 2, 3, 4]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)  # Output: [1, 4, 9, 16]</pre>
+            </div>
+
+            <h3>4. Recursive Functions</h3>
+            <p>Functions that call themselves to solve problems recursively.</p>
+            <div class="code-block">
+                <pre>
+def factorial(n):
+    """Calculate factorial recursively."""
+    if n == 0:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))  # Output: 120</pre>
+            </div>
+
+            <div class="warning">
+                <p><strong>Caution:</strong> Recursive functions need a base case to prevent infinite recursion. Python has a recursion limit (usually 1000) to prevent stack overflow.</p>
+            </div>
+
+            <h3>5. Higher-order Functions</h3>
+            <p>Functions that take other functions as arguments or return functions.</p>
+            <div class="code-block">
+                <pre>
+def apply_operation(func, value):
+    """Apply a function to a value."""
+    return func(value)
+
+def double(x):
+    return x * 2
+
+print(apply_operation(double, 5))  # Output: 10</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Function Scope and Namespaces</h2>
+            <p>Understanding scope is crucial for working with variables in functions.</p>
+            
+            <h3>Variable Scope Rules</h3>
+            <ul>
+                <li><strong>Local scope:</strong> Variables defined inside a function</li>
+                <li><strong>Enclosing scope:</strong> Variables in the local scope of enclosing functions</li>
+                <li><strong>Global scope:</strong> Variables defined at the top level of a module</li>
+                <li><strong>Built-in scope:</strong> Names in the built-in namespace (like <span class="highlight">print</span>, <span class="highlight">len</span>)</li>
+            </ul>
+
+            <div class="code-block">
+                <pre>
+x = 10  # Global variable
+
+def outer_function():
+    y = 20  # Enclosing variable
+    
+    def inner_function():
+        z = 30  # Local variable
+        print(x, y, z)  # Can access all
+    
+    inner_function()
+    print(x, y)  # Can access x and y
+    # print(z)  # Error: z is local to inner_function
+
+outer_function()
+print(x)  # Can access only x
+# print(y)  # Error: y is local to outer_function
+# print(z)  # Error: z is local to inner_function</pre>
+            </div>
+
+            <h3>The <span class="highlight">global</span> and <span class="highlight">nonlocal</span> Keywords</h3>
+            <div class="code-block">
+                <pre>
+# Using global
+x = 10
+
+def modify_global():
+    global x
+    x = 20  # Modifies the global x
+
+modify_global()
+print(x)  # Output: 20
+
+# Using nonlocal
+def outer():
+    x = 10
+    
+    def inner():
+        nonlocal x
+        x = 20  # Modifies the enclosing x
+    
+    inner()
+    print(x)  # Output: 20
+
+outer()</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Best Practices for Python Functions</h2>
+            
+            <h3>1. Function Naming</h3>
+            <ul>
+                <li>Use lowercase with underscores (snake_case)</li>
+                <li>Be descriptive but concise</li>
+                <li>Use verbs for actions (get_data, calculate_total)</li>
+            </ul>
+
+            <h3>2. Function Length</h3>
+            <ul>
+                <li>Aim for small, focused functions (10-20 lines max)</li>
+                <li>If a function is too long, consider breaking it down</li>
+            </ul>
+
+            <h3>3. Documentation</h3>
+            <ul>
+                <li>Always include docstrings</li>
+                <li>Follow the Google or NumPy docstring format for consistency</li>
+            </ul>
+
+            <h3>4. Single Responsibility Principle</h3>
+            <ul>
+                <li>Each function should do one thing well</li>
+                <li>Avoid side effects when possible</li>
+            </ul>
+
+            <h3>5. Type Hints (Python 3.5+)</h3>
+            <p>Add type annotations to make your code more maintainable.</p>
+            <div class="code-block">
+                <pre>
+def greet(name: str) -> str:
+    """Return a greeting message.
+    
+    Args:
+        name: The name to include in the greeting.
+        
+    Returns:
+        A formatted greeting string.
+    """
+    return f"Hello, {name}!"</pre>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2><i class="fas fa-trophy"></i> Python Functions Challenge</h2>
+                <p>Test your knowledge with these interactive questions</p>
+            </div>
+
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="quiz-progress"></div>
+            </div>
+
+            <div id="quiz-questions">
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">1</span> What is the output of this code?</p>
+                    <div class="code-container">
+                        <pre>
+def greet(name="World"):
+    return f"Hello, {name}!"
+print(greet())</pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">A</span>
+                            Hello, World!
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">B</span>
+                            Hello!
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            World!
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            Error
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">2</span> Which of these correctly defines a lambda function that doubles its input?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">A</span>
+                            def double(x): return x * 2
+                        </div>
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">B</span>
+                            lambda x: x * 2
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            function(x) { return x * 2 }
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            x => x * 2
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">3</span> What does this recursive function compute?</p>
+                    <div class="code-container">
+                        <pre>
+def compute(n):
+    if n <= 1:
+        return n
+    return compute(n-1) + compute(n-2)</pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">A</span>
+                            Fibonacci sequence
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">B</span>
+                            Factorial
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            Sum of squares
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            Power of 2
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">4</span> What is the output of this code?</p>
+                    <div class="code-container">
+                        <pre>
+x = 5
+def func():
+    x = 10
+    print(x)
+func()
+print(x)</pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">A</span>
+                            10<br>5
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">B</span>
+                            5<br>10
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            10<br>10
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            5<br>5
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">5</span> What will this code produce?</p>
+                    <div class="code-container">
+                        <pre>
+def add(*args):
+    return sum(args)
+print(add(1, 2, 3))</pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">A</span>
+                            6
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">B</span>
+                            123
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            [1, 2, 3]
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            None
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">6</span> Which parameter type allows you to pass arguments in any order?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">A</span>
+                            Positional arguments
+                        </div>
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">B</span>
+                            Keyword arguments
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            Default arguments
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            Variable-length arguments
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><span class="quiz-question-number">7</span> What is the purpose of the <span class="highlight">nonlocal</span> keyword?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">A</span>
+                            To declare a global variable
+                        </div>
+                        <div class="quiz-option" data-correct="true">
+                            <span class="quiz-option-prefix">B</span>
+                            To modify a variable in the enclosing scope
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">C</span>
+                            To create a new local variable
+                        </div>
+                        <div class="quiz-option" data-correct="false">
+                            <span class="quiz-option-prefix">D</span>
+                            To import a variable from another module
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-result" id="quiz-result">
+                <h3>Your Results</h3>
+                <div class="quiz-score" id="quiz-score">0/7</div>
+                <div class="quiz-feedback" id="quiz-feedback">Keep practicing!</div>
+                
+                <div class="quiz-details" id="quiz-details">
+                    <h4>Detailed Feedback</h4>
+                    <!-- Will be filled by JavaScript -->
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn" onclick="submitQuiz()">Submit Quiz</button>
+                <button class="btn btn-secondary" onclick="resetQuiz()">Reset Quiz</button>
+            </div>
+        </div>
+
+        <script>
+            // Add copy code functionality to all code examples
+            document.querySelectorAll('.code-block').forEach(block => {
+                const container = document.createElement('div');
+                container.className = 'code-container';
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.textContent = 'Copy';
+                copyBtn.onclick = function() { copyCode(this); };
+                block.parentNode.insertBefore(container, block);
+                container.appendChild(block);
+                container.appendChild(copyBtn);
+            });
+
+            function copyCode(button) {
+                const codeBlock = button.parentElement.querySelector('pre');
+                navigator.clipboard.writeText(codeBlock.textContent);
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+            }
+
+            // Quiz functionality
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    const question = option.closest('.quiz-question');
+                    const siblings = question.querySelectorAll('.quiz-option');
+                    siblings.forEach(sib => sib.classList.remove('selected'));
+                    option.classList.add('selected');
+                    updateProgress();
+                });
+            });
+
+            function updateProgress() {
+                const totalQuestions = document.querySelectorAll('.quiz-question').length;
+                const answered = document.querySelectorAll('.quiz-option.selected').length;
+                const progress = (answered / totalQuestions) * 100;
+                document.getElementById('quiz-progress').style.width = `${progress}%`;
+            }
+
+            function submitQuiz() {
+                const submitBtn = document.querySelector('.btn[onclick="submitQuiz()"]');
+                if (submitBtn.disabled) return;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Submitted';
+
+                let correct = 0;
+                let incorrect = 0;
+                const detailedResults = [];
+
+                document.querySelectorAll('.quiz-question').forEach((question, index) => {
+                    const questionNumber = index + 1;
+                    const selectedOption = question.querySelector('.quiz-option.selected');
+                    const correctOption = question.querySelector('.quiz-option[data-correct="true"]');
+                    
+                    if (selectedOption) {
+                        if (selectedOption.dataset.correct === 'true') {
+                            correct++;
+                            selectedOption.classList.add('correct');
+                            detailedResults.push(
+                                `<div class="quiz-detail-item quiz-detail-correct">
+                                    <i class="fas fa-check-circle"></i> Question ${questionNumber}: Correct!
+                                </div>`
+                            );
+                        } else {
+                            incorrect++;
+                            selectedOption.classList.add('incorrect');
+                            correctOption.classList.add('correct');
+                            detailedResults.push(
+                                `<div class="quiz-detail-item quiz-detail-incorrect">
+                                    <i class="fas fa-times-circle"></i> Question ${questionNumber}: Incorrect. The correct answer was ${correctOption.querySelector('.quiz-option-prefix').textContent}.
+                                </div>`
+                            );
+                        }
+                    } else {
+                        incorrect++;
+                        correctOption.classList.add('correct');
+                        detailedResults.push(
+                            `<div class="quiz-detail-item quiz-detail-incorrect">
+                                <i class="fas fa-exclamation-circle"></i> Question ${questionNumber}: Not answered. The correct answer was ${correctOption.querySelector('.quiz-option-prefix').textContent}.
+                            </div>`
+                        );
+                    }
+                });
+
+                // Calculate score and feedback
+                const totalQuestions = correct + incorrect;
+                const percentage = Math.round((correct / totalQuestions) * 100);
+                
+                document.getElementById('quiz-score').textContent = `${correct}/${totalQuestions}`;
+                
+                let feedback = '';
+                if (percentage >= 90) {
+                    feedback = 'Excellent work! You have mastered Python functions.';
+                } else if (percentage >= 70) {
+                    feedback = 'Good job! You have a solid understanding of Python functions.';
+                } else if (percentage >= 50) {
+                    feedback = 'Not bad! Review the concepts and try again.';
+                } else {
+                    feedback = 'Keep practicing! Review the tutorial and try again.';
+                }
+                
+                document.getElementById('quiz-feedback').textContent = feedback;
+                document.getElementById('quiz-details').innerHTML = detailedResults.join('');
+                document.getElementById('quiz-result').style.display = 'block';
+                
+                // Scroll to results
+                document.getElementById('quiz-result').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            function resetQuiz() {
+                document.querySelectorAll('.quiz-option').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                document.getElementById('quiz-result').style.display = 'none';
+                document.getElementById('quiz-progress').style.width = '0%';
+                const submitBtn = document.querySelector('.btn[onclick="submitQuiz()"]');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Quiz';
+            }
+        </script>
     </div>
 </body>
 </html>
